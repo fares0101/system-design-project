@@ -1,0 +1,42 @@
+{
+    "name": "@medical-booking/frontend",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@headlessui/react": "^1.7.13",
+        "@heroicons/react": "^2.0.17",
+        "autoprefixer": "^10.4.14",
+        "axios": "^1.3.4",
+        "date-fns": "^2.29.3",
+        "formik": "^2.2.9",
+        "next": "^13.4.0",
+        "next-auth": "^4.22.1",
+        "next-i18next": "^13.1.2",
+        "postcss": "^8.4.21",
+        "react": "^18.2.0",
+        "react-datepicker": "^4.10.0",
+        "react-dom": "^18.2.0",
+        "react-hot-toast": "^2.4.0",
+        "react-query": "^3.39.3",
+        "tailwindcss": "^3.2.7",
+        "yup": "^1.0.2"
+    },
+    "devDependencies": {
+        "@tailwindcss/forms": "^0.5.10",
+        "@types/node": "^18.15.11",
+        "@types/react": "^18.0.33",
+        "@types/react-dom": "^18.0.11",
+        "@typescript-eslint/eslint-plugin": "^5.57.1",
+        "@typescript-eslint/parser": "^5.57.1",
+        "eslint": "^8.37.0",
+        "eslint-config-next": "^13.4.0",
+        "prettier": "^2.8.7",
+        "typescript": "^5.0.3"
+    }
+}

@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-medical_booking}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - medical_network
+
+  auth_service:
+    build:
+      context: ./backend/auth-service
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-medical_booking}
+      - JWT_SECRET=${JWT_SECRET:-your_jwt_secret_here}
+      - PORT=3001
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+    networks:
+      - medical_network
+
+  booking_service:
+    build:
+      context: ./backend/booking-service
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-medical_booking}
+      - JWT_SECRET=${JWT_SECRET:-your_jwt_secret_here}
+      - PORT=3002
+    ports:
+      - "3002:3002"
+    depends_on:
+      - postgres
+      - auth_service
+    networks:
+      - medical_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-your_nextauth_secret_here}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth_service
+      - booking_service
+    networks:
+      - medical_network
+
+volumes:
+  postgres_data:
+
+networks:
+  medical_network:
+    driver: bridge 

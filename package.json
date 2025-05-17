@@ -1,0 +1,36 @@
+{
+    "name": "medical-booking-system",
+    "version": "1.0.0",
+    "description": "Multi-branch medical clinic booking system",
+    "private": true,
+    "workspaces": [
+        "frontend",
+        "mobile",
+        "backend/*",
+        "shared"
+    ],
+    "scripts": {
+        "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+        "dev:backend": "cd backend && npm run dev",
+        "dev:frontend": "cd frontend && npm run dev",
+        "dev:mobile": "cd mobile && npm run start",
+        "build": "npm run build:backend && npm run build:frontend",
+        "build:backend": "cd backend && npm run build",
+        "build:frontend": "cd frontend && npm run build",
+        "test": "npm run test:backend && npm run test:frontend",
+        "test:backend": "cd backend && npm test",
+        "test:frontend": "cd frontend && npm test"
+    },
+    "devDependencies": {
+        "@tailwindcss/forms": "^0.5.10",
+        "concurrently": "^8.2.0"
+    },
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "react-icons": "^5.5.0"
+    }
+}
